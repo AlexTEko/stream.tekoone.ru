@@ -37,9 +37,14 @@ if ($_GET['do'] == 'live') {
 }
 
 if ($_GET['do'] == "delete") {
-		$file = $_GET['file'];
-		unlink($directory.$file);
-		unlink($directory.str_replace(".mp4",".jpeg",$file));
-		unlink($directory.str_replace(".mp4",".min.jpeg",$file));
+    if (isset($_POST['token'])) {
+        if ($_POST['token'] == "D3E79F86D8D716DFF81C52D711367") {
+            if (isset($_POST['file'])) {
+                $file = $_POST['file'];
+                unlink($directory . $file);
+                unlink($directory . str_replace(".mp4", ".jpeg", $file));
+                unlink($directory . str_replace(".mp4", ".min.jpeg", $file));
+            }
+        }
+    }
 }
-?>

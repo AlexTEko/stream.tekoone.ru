@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('StreamApp', []);
+var app = angular.module('StreamApp', ['LocalStorageModule']);
 var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false}); 
 //var myPlayer = videojs('myplayer', {context:new Dash.di.DashContext()});
 
@@ -9,25 +9,22 @@ app.controller('indexController', function($scope) {
 
 });
 
-app.controller('playerController', function($scope, $location, $http, $interval) {
+app.controller('playerController', function($scope, $location, $http, $interval, localStorageService) {
 	//console.info($location.$$path);
 	$scope.currentVideo = " ";
 	$scope.isLive = false;
 	$scope.isLiveOnline = false;
-	
-	 function get_list() { 
-		$http.get("api.php", { 
+
+	function get_list() {
+		$http.get("api.php", {
 			params: {
 				do: "get"
 			}
 		}).success(function (response) {
-			$scope.videos = response.records; 	
-			$scope.isLiveOnline = response.live;	
+			$scope.videos = response.records;
+			$scope.isLiveOnline = response.live;
 		})
 	}
-	 get_list();
-	$interval(function() {get_list()}, 5000);
-
 
 	$scope.play = function (name) {
 		if (myPlayer.currentType() == "rtmp/mp4")
@@ -36,6 +33,7 @@ app.controller('playerController', function($scope, $location, $http, $interval)
 		$scope.currentVideo = name;
 		$scope.isLive = false;
 	}
+
 	$scope.live = function () {
 		$scope.currentVideo = "Live Stream";
 		$scope.isLive = true;
@@ -44,8 +42,9 @@ app.controller('playerController', function($scope, $location, $http, $interval)
 		myPlayer.duration(0);
 		myPlayer.play();
 	}
+
 	$scope.update = function () {
-		$http.get("api.php", { 
+		$http.get("api.php", {
 			params: {
 				do: "update"
 			}
@@ -53,6 +52,7 @@ app.controller('playerController', function($scope, $location, $http, $interval)
 			get_list();
 		})
 	}
+
   	if ($location.$$path) {
 		//console.log($location);
 		if ($location.$$path == "/live")
@@ -70,5 +70,16 @@ app.controller('playerController', function($scope, $location, $http, $interval)
 			}
 			$scope.isLive = false;
 		}
-	} 
+	}
+
+    $scope.delete = function (name) {
+        var data = "file=" + name + "&token=" + localStorageService.get('token');
+        $http.post('api.php?do=delete', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function() {
+            get_list();
+        });
+    }
+
+    get_list();
+    $interval(function() {get_list()}, 5000);
+
 });
