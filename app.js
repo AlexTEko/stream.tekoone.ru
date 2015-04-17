@@ -134,7 +134,8 @@ app.controller('playerController', function($scope, $location, $http, $interval,
         var data = "user=" + $scope.loginData.user + "&pass=" + $scope.loginData.pass;
         $http.post('api.php?do=login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function(response) {
             //console.log(response);
-            localStorageService.set('token',response.token);
+            if (response.token)
+                localStorageService.set('token',response.token);
             $scope.showModalLogin = !$scope.showModalLogin;
             get_list();
         });
