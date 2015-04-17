@@ -48,3 +48,11 @@ if ($_GET['do'] == "delete") {
         }
     }
 }
+
+if ($_GET['do'] == "login") {
+    if (isset($_POST['user']) && isset($_POST['pass'])) {
+        if (($_POST['user'] == "123") && ($_POST['pass'] == "123")) {
+            echo('{"token":"D3E79F86D8D716DFF81C52D711367"}');
+        }
+    }
+}

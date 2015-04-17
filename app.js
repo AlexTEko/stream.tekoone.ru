@@ -4,6 +4,47 @@ var app = angular.module('StreamApp', ['LocalStorageModule']);
 var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false}); 
 //var myPlayer = videojs('myplayer', {context:new Dash.di.DashContext()});
 
+app.directive('modal', function () {
+    return {
+        template: '<div class="modal fade bs-example-modal-sm">' +
+        '<div class="modal-dialog modal-sm">' +
+        '<div class="modal-content">' +
+        '<div class="modal-header">' +
+        '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+        '<h4 class="modal-title">{{ title }}</h4>' +
+        '</div>' +
+        '<div class="modal-body" ng-transclude></div>' +
+        '</div>' +
+        '</div>' +
+        '</div>',
+        restrict: 'E',
+        transclude: true,
+        replace: true,
+        scope: true,
+        link: function postLink(scope, element, attrs) {
+            scope.title = attrs.title;
+
+            scope.$watch(attrs.visible, function (value) {
+                if (value == true)
+                    $(element).modal('show');
+                else
+                    $(element).modal('hide');
+            });
+
+            $(element).on('shown.bs.modal', function () {
+                scope.$apply(function () {
+                    scope.$parent[attrs.visible] = true;
+                });
+            });
+
+            $(element).on('hidden.bs.modal', function () {
+                scope.$apply(function () {
+                    scope.$parent[attrs.visible] = false;
+                });
+            });
+        }
+    };
+});
 
 app.controller('indexController', function($scope) {
 
@@ -14,6 +55,12 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 	$scope.currentVideo = " ";
 	$scope.isLive = false;
 	$scope.isLiveOnline = false;
+    $scope.showModalLogin = false;
+
+    $scope.loginData = {
+        user: "",
+        pass: ""
+    };
 
 	function get_list() {
 		$http.get("api.php", {
@@ -77,6 +124,24 @@ app.controller('playerController', function($scope, $location, $http, $interval,
         $http.post('api.php?do=delete', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function() {
             get_list();
         });
+    }
+
+    $scope.showLogin = function() {
+        $scope.showModalLogin = !$scope.showModalLogin;
+    }
+
+    $scope.login = function() {
+        var data = "user=" + $scope.loginData.user + "&pass=" + $scope.loginData.pass;
+        $http.post('api.php?do=login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function(response) {
+            //console.log(response);
+            localStorageService.set('token',response.token);
+            $scope.showModalLogin = !$scope.showModalLogin;
+            get_list();
+        });
+    }
+
+    $scope.isAdmin = function() {
+        return (localStorageService.get('token'))
     }
 
     get_list();
