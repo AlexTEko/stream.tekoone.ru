@@ -40,8 +40,8 @@
                 </video>
             </div>
             <div class="col-md-4" style = "padding-top: 20px" ng-cloak>
-                <a class="btn btn-danger btn-lg btn-block"  href="#/live" ng-click="live()" ng-show="isLiveOnline">Live Streaming Now</a>
-                <a class="btn btn-danger btn-lg btn-block"  ng-hide="isLiveOnline" disabled>Live Stream is Off</a>
+                <div ng-show="isLiveOnline"><a class="btn btn-danger btn-lg btn-block"  href="#/live" ng-click="live()">Live Streaming Now</a></div>
+                <div ng-hide="isLiveOnline"><a class="btn btn-danger btn-lg btn-block" disabled>Live Streaming (Offline)</a></div>
 
                 <table class="table table-striped" >
                     <thead>
