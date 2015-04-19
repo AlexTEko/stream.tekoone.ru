@@ -70,6 +70,7 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 		}).success(function (response) {
 			$scope.videos = response.records;
 			$scope.isLiveOnline = response.live;
+            $scope.countLive = response.count;
 		})
 	}
 

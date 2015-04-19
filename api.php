@@ -27,7 +27,14 @@ if ($_GET['do'] == 'get') {
 		}
 	
 	}
-	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'"}';
+
+    $myfile = fopen("watching", "r+");
+    $count = fgets($myfile);
+    if (empty($count))
+        $count = 0;
+    fclose($myfile);
+
+	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'"}';
 	echo($outp);
 }
 
