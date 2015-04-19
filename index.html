@@ -35,7 +35,7 @@
                         <div style="width: 100px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> CPU
                             <div class="progress progress-striped active" >
-                                <div class="progress-bar progress-bar-success" style="width: {{cpu}}%"></div>
+                                <div class="progress-bar progress-bar-info" style="width: {{cpu}}%"></div>
                             </div>
                         </div>
                     </li>
@@ -43,7 +43,8 @@
                         <div style="width: 100px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> RAM
                             <div class="progress progress-striped active" >
-                                <div class="progress-bar progress-bar-info" style="width: {{memory}}%"></div>
+                                <div class="progress-bar progress-bar-success" style="width: {{memory}}%"></div>
+                                <div class="progress-bar progress-bar-warning" style="width: {{cache}}%"></div>
                             </div>
                         </div>
                     </li>

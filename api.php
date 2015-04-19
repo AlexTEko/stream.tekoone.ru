@@ -12,8 +12,8 @@ function get_server_memory_usage(){
     $mem = explode(" ", $free_arr[1]);
     $mem = array_filter($mem);
     $mem = array_merge($mem);
-    $memory_usage = $mem[2]/$mem[1]*100;
-
+    $memory_usage['real'] = $mem[2]/$mem[1]*100 - $mem[6]/$mem[1]*100;
+    $memory_usage['cache'] = $mem[6]/$mem[1]*100;
     return $memory_usage;
 }
 
@@ -63,7 +63,7 @@ if ($_GET['do'] == 'get') {
 
 
 	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'",
-	    "disk":'.$disk.',"memory":"'.round(get_server_memory_usage(),0).'","cpu":"'.round(get_server_cpu_usage(),0).'"}';
+	    "disk":'.$disk.',"memory":"'.round(get_server_memory_usage()['real'],0).'","cache":"'.round(get_server_memory_usage()['cache'],0).'","cpu":"'.round(get_server_cpu_usage(),0).'"}';
 	echo($outp);
 }
 

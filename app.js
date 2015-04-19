@@ -82,6 +82,7 @@ app.controller('playerController', function($scope, $location, $http, $interval,
             $scope.disk.percent = response.disk.percent;
             $scope.cpu = response.cpu;
             $scope.memory = response.memory;
+            $scope.cache = response.cache;
         })
 	}
 
