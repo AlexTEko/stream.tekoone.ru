@@ -4,6 +4,27 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $directory = 'rec/';
 
+function get_server_memory_usage(){
+
+    $free = shell_exec('free');
+    $free = (string)trim($free);
+    $free_arr = explode("\n", $free);
+    $mem = explode(" ", $free_arr[1]);
+    $mem = array_filter($mem);
+    $mem = array_merge($mem);
+    $memory_usage = $mem[2]/$mem[1]*100;
+
+    return $memory_usage;
+}
+
+function get_server_cpu_usage(){
+
+    $load = sys_getloadavg();
+    return $load[0];
+
+}
+
+
 if ($_GET['do'] == 'get') {
 		$directory = 'rec/';
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
@@ -39,7 +60,10 @@ if ($_GET['do'] == 'get') {
     $du = $ds - $df;
     $disk = '{"percent":"'.round(100-($df/$ds)*100,0).'","used":"'.$du.'","free":"'.$df.'"}';
 
-	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'","disk":'.$disk.'}';
+
+
+	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'",
+	    "disk":'.$disk.',"memory":"'.round(get_server_memory_usage(),0).'","cpu":"'.round(get_server_cpu_usage(),0).'"}';
 	echo($outp);
 }
 

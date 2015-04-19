@@ -80,7 +80,9 @@ app.controller('playerController', function($scope, $location, $http, $interval,
             $scope.disk.used = response.disk.used;
             $scope.disk.free = response.disk.free;
             $scope.disk.percent = response.disk.percent;
-		})
+            $scope.cpu = response.cpu;
+            $scope.memory = response.memory;
+        })
 	}
 
 	$scope.play = function (name) {
@@ -158,6 +160,6 @@ app.controller('playerController', function($scope, $location, $http, $interval,
     }
 
     get_list();
-    $interval(function() {get_list()}, 5000);
+    $interval(function() {get_list()}, 3000);
 
 });

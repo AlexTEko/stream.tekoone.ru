@@ -31,6 +31,22 @@
                             </div>
                         </div>
                     </li>
+                    <li>
+                        <div style="width: 100px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
+                            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> CPU
+                            <div class="progress progress-striped active" >
+                                <div class="progress-bar progress-bar-success" style="width: {{cpu}}%"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div style="width: 100px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
+                            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> RAM
+                            <div class="progress progress-striped active" >
+                                <div class="progress-bar progress-bar-info" style="width: {{memory}}%"></div>
+                            </div>
+                        </div>
+                    </li>
                     <!--<li><a >{{disk.free}} gb</a></li>-->
                     <!--<li><a ui-sref="player">player</a></li>-->
                     <!--<li><a href="#" ng-click="admin()">admin</a></li> &ndash;&gt;-->
