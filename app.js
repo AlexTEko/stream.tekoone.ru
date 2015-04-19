@@ -120,10 +120,12 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 	}
 
     $scope.delete = function (name) {
-        var data = "file=" + name + "&token=" + localStorageService.get('token');
-        $http.post('api.php?do=delete', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function() {
-            get_list();
-        });
+        if (confirm("Are you sure want to delete?")) {
+            var data = "file=" + name + "&token=" + localStorageService.get('token');
+            $http.post('api.php?do=delete', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function () {
+                get_list();
+            });
+        }
     }
 
     $scope.showLogin = function() {

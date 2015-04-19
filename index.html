@@ -16,12 +16,12 @@
     <nav class="navbar navbar-fixed-top" ng-controller="indexController">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">StreamApp</a>
+                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> StreamApp</a>
             </div>
-            <p class="navbar-text  navbar-right">stream.tekoone.ru </p>
+            <p class="navbar-text  navbar-right"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> stream.tekoone.ru </p>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a href="#" ng-click="showLogin()">Admin</a></li>
+                    <li><a href="#" ng-click="showLogin()"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Control panel</a></li>
                     <!--<li><a ui-sref="player">player</a></li>-->
                     <!--<li><a href="#" ng-click="admin()">admin</a></li> &ndash;&gt;-->
                  </ul>
@@ -40,19 +40,22 @@
                 </video>
             </div>
             <div class="col-md-4" style = "padding-top: 20px" ng-cloak>
-                <div ng-show="isLiveOnline"><a class="btn btn-danger btn-lg btn-block"  href="#/live" ng-click="live()">Live Streaming Now</a></div>
-                <div ng-hide="isLiveOnline"><a class="btn btn-danger btn-lg btn-block" disabled>Live Streaming (Offline)</a></div>
+                <div ng-show="isLiveOnline"><a class="btn btn-danger btn-lg btn-block"  href="#/live" ng-click="live()">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Live Streaming</a></div>
+                <div ng-hide="isLiveOnline"><a class="btn btn-danger btn-lg btn-block" disabled>
+                    <span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Live Streaming</a></div>
 
                 <table class="table table-striped" >
                     <thead>
                     <tr>
-                      <th>Last videos:</th>
+                      <th>Last videos</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="video in videos">
-                        <td><img ng-src="{{ video.img }}"/> <a href="#/{{ video.name }}" ng-click="play(video.src)">{{ video.name }}</a></td>
-                        <td><a href="#" class="btn btn-danger btn-xs" ng-click="delete(video.name)" ng-show="isAdmin()">Delete</a></td>
+                        <td><img ng-src="{{ video.img }}"/> <a href="#/{{ video.name }}" ng-click="play(video.src)">
+                            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{ video.name }}</a></td>
+                        <td><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -81,7 +84,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-12 controls text-center">
-                        <button id="loginbtn" class="btn btn-primary" type="submit" data-ng-click="login()">Login</button>
+                        <button id="loginbtn" class="btn btn-primary" type="submit" data-ng-click="login()">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login</button>
                     </div>
                 </div>
             </fieldset>
