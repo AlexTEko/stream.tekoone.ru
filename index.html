@@ -13,15 +13,25 @@
     </style>
 </head>
 <body ng-app="StreamApp" ng-controller="playerController" >
-    <nav class="navbar navbar-fixed-top" ng-controller="indexController">
+    <nav class="navbar navbar-fixed-top" ng-controller="indexController" >
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> StreamApp</a>
             </div>
             <p class="navbar-text  navbar-right"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> stream.tekoone.ru </p>
             <div>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" ng-clock>
                     <li><a href="#" ng-click="showLogin()"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Control panel</a></li>
+                    <!--<li><a> {{disk.used}} gb</a></li>-->
+                    <li>
+                        <div style="width: 300px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
+                            {{disk.used}}gb <span class="pull-right">{{disk.free}}gb</span>
+                            <div class="progress progress-striped active" >
+                                <div class="progress-bar" style="width: {{disk.percent}}%"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <!--<li><a >{{disk.free}} gb</a></li>-->
                     <!--<li><a ui-sref="player">player</a></li>-->
                     <!--<li><a href="#" ng-click="admin()">admin</a></li> &ndash;&gt;-->
                  </ul>

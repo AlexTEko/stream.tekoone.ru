@@ -62,6 +62,12 @@ app.controller('playerController', function($scope, $location, $http, $interval,
         pass: ""
     };
 
+    $scope.disk = {
+        used: "",
+        free: "",
+        percent: ""
+    }
+
 	function get_list() {
 		$http.get("api.php", {
 			params: {
@@ -71,6 +77,9 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 			$scope.videos = response.records;
 			$scope.isLiveOnline = response.live;
             $scope.countLive = response.count;
+            $scope.disk.used = response.disk.used;
+            $scope.disk.free = response.disk.free;
+            $scope.disk.percent = response.disk.percent;
 		})
 	}
 

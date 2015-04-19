@@ -34,7 +34,12 @@ if ($_GET['do'] == 'get') {
         $count = 0;
     fclose($myfile);
 
-	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'"}';
+    $ds = round(disk_total_space("/")/1024/1024/1024,2);
+    $df = round(disk_free_space("/")/1024/1024/1024,2);
+    $du = $ds - $df;
+    $disk = '{"percent":"'.round(100-($df/$ds)*100,0).'","used":"'.$du.'","free":"'.$df.'"}';
+
+	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'","disk":'.$disk.'}';
 	echo($outp);
 }
 
@@ -62,4 +67,8 @@ if ($_GET['do'] == "login") {
             echo('{"token":"D3E79F86D8D716DFF81C52D711367"}');
         }
     }
+}
+
+if ($_GET['do'] == "free") {
+
 }
