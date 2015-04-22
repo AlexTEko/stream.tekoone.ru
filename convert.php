@@ -1,6 +1,6 @@
 <?php
-		$directory = '/var/www/stream.tekoone.ru/rec/live/';
-		$rec = '/var/www/stream.tekoone.ru/rec/';
+		$directory = './rec/live/';
+		$rec = './rec/';
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
 
         foreach ($scanned_directory as $file) {

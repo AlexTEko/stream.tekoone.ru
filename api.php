@@ -20,7 +20,7 @@ function get_server_memory_usage(){
 function get_server_cpu_usage(){
 
     $load = sys_getloadavg();
-    return $load[0];
+    return $load[0]*100;
 
 }
 
@@ -66,7 +66,7 @@ if ($_GET['do'] == 'get') {
 
 
 	$outp ='{"records":['.$outp.'],"live":"'.file_exists("live").'","count":"'.$count.'",
-	    "disk":'.$disk.',"memory":"'.round(get_server_memory_usage()['real'],0).'","cache":"'.round(get_server_memory_usage()['cache'],0).'","cpu":"'.round(get_server_cpu_usage(),0).'"}';
+	    "disk":'.$disk.',"memory":"'.round(get_server_memory_usage()['real'],0).'","cache":"'.round(get_server_memory_usage()['cache'],0).'","cpu":"'.get_server_cpu_usage().'"}';
 	echo($outp);
 }
 
