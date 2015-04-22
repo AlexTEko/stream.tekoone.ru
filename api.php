@@ -49,12 +49,6 @@ if ($_GET['do'] == 'get') {
 	
 	}
 
-//    $myfile = fopen("watching", "r+");
-//    $count = fgets($myfile);
-//    if (empty($count))
-//        $count = 0;
-//    fclose($myfile);
-
     $xml=simplexml_load_string(file_get_contents('http://stream.tekoone.ru:8080/stat')) or die("Error: Cannot create object");
     $count  = ($xml->server->application->live->nclients) - 1;
 
