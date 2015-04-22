@@ -18,12 +18,13 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> StreamApp</a>
             </div>
-            <p class="navbar-text  navbar-right"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> stream.tekoone.ru </p>
-            <div>
-                <ul class="nav navbar-nav" ng-clock>
-                    <li><a href="#" ng-click="showLogin()"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Control panel</a></li>
-                    <!--<li><a> {{disk.used}} gb</a></li>-->
-                    <li>
+            <p class="navbar-text  navbar-right" ng-hide="isAdmin()">
+                <a href="#" ng-click="showLogin()"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Control panel</a>
+            </p>
+            <!--<p class="navbar-text  navbar-right"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> stream.tekoone.ru </p>-->
+            <div ng-clock>
+                <ul class="nav navbar-nav">
+                    <li ng-show="isAdmin()">
                         <div style="width: 300px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> {{disk.used}}gb <span class="pull-right">{{disk.free}}gb</span>
                             <div class="progress progress-striped active" >
@@ -31,7 +32,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li ng-show="isAdmin()">
                         <div style="width: 100px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> CPU
                             <div class="progress progress-striped active" >
@@ -39,7 +40,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li ng-show="isAdmin()">
                         <div style="width: 100px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> RAM
                             <div class="progress progress-striped active" >
@@ -82,7 +83,7 @@
                     <tr ng-repeat="video in videos">
                         <td><img ng-src="{{ video.img }}"/> <a href="#/{{ video.name }}" ng-click="play(video.src)">
                             <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{ video.name }}</a></td>
-                        <td><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                        <td><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                     </tr>
                     </tbody>
                 </table>
