@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('StreamApp', ['LocalStorageModule']);
-var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false}); 
+var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false});
 //var myPlayer = videojs('myplayer', {context:new Dash.di.DashContext()});
 
 app.directive('modal', function () {
@@ -97,8 +97,11 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 	$scope.live = function () {
 		$scope.currentVideo = "Live Stream";
 		$scope.isLive = true;
-		myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
-		//myPlayer.src({type: "application/dash+xml", src: "http://stream.tekoone.ru:8080/dash/test.mpd"});
+    if (navigator.appVersion.indexOf("Win")!=-1)
+		  myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+  //  if (navigator.appVersion.indexOf("Mac")!=-1)
+    else
+		  myPlayer.src({type: "application/x-mpegURL", src: "http://stream.tekoone.ru:8080/hls/test.m3u8"});
 		myPlayer.duration(0);
 		myPlayer.play();
 	}
