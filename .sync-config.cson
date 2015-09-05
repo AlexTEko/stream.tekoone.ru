@@ -1,5 +1,5 @@
 remote:
-  host: "tekoone.ru"
+  host: "t1"
   user: "root"
   path: "/var/www/stream.tekoone.ru"
 behaviour:

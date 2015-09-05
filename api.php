@@ -28,7 +28,7 @@ function get_server_cpu_usage(){
 if ($_GET['do'] == 'get') {
 		$directory = 'rec/';
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
-	
+
         foreach ($scanned_directory as $file) {
             if (file_exists("rec/".$file)) {
                 $file_name = explode(".", $file);
@@ -46,10 +46,10 @@ if ($_GET['do'] == 'get') {
 			$outp .= '"src":"rec/'  . $rs. '",';
 			$outp .= '"img":"rec/'  . str_replace(".mp4",".min.jpeg",$rs). '"}';
 		}
-	
+
 	}
 
-    $xml=simplexml_load_string(file_get_contents('http://stream.tekoone.ru:8080/stat')) or die("Error: Cannot create object");
+    $xml=simplexml_load_string(file_get_contents('http://localhost:850/stat')) or die("Error: Cannot create object");
     $count  = ($xml->server->application->live->nclients) - 1;
 
     $ds = round(disk_total_space("/")/1024/1024/1024,2);
