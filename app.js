@@ -100,6 +100,8 @@ app.controller('playerController', function($scope, $location, $http, $interval,
     if (navigator.appVersion.indexOf("Win")!=-1)
 		  myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
   //  if (navigator.appVersion.indexOf("Mac")!=-1)
+    if (navigator.appVersion.indexOf("Linux")!=-1)
+      myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
     else
 		  myPlayer.src({type: "application/x-mpegURL", src: "http://stream.tekoone.ru:8080/hls/test.m3u8"});
 		myPlayer.duration(0);
