@@ -1,7 +1,7 @@
 <?php
 	$myfile = fopen("live", "w");
 	fclose($myfile);
-    Notify();
+    //Notify();
 
     function Notify()
     {
