@@ -49,8 +49,8 @@ if ($_GET['do'] == 'get') {
 
 	}
 
-    $xml=simplexml_load_string(file_get_contents('http://localhost:850/stat')) or die("Error: Cannot create object");
-    $count  = ($xml->server->application->live->nclients) - 1;
+  //  $xml=simplexml_load_string(file_get_contents('http://localhost:850/stat')) or die("Error: Cannot create object");
+  //  $count  = ($xml->server->application->live->nclients) - 1;
 
     $ds = round(disk_total_space("/")/1024/1024/1024,2);
     $df = round(disk_free_space("/")/1024/1024/1024,2);
