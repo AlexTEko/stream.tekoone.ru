@@ -97,13 +97,30 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 	$scope.live = function () {
 		$scope.currentVideo = "Live Stream";
 		$scope.isLive = true;
-    if (navigator.appVersion.indexOf("Win")!=-1)
-		  myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
-  //  if (navigator.appVersion.indexOf("Mac")!=-1)
-    if (navigator.appVersion.indexOf("Linux")!=-1)
+    console.log(navigator);
+    if (navigator.appVersion.indexOf("Mac")!=-1) {
+      if (navigator.appVersion.indexOf("Chrome")!=-1) {
+        myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+      }
+      else {
+        myPlayer.src({type: "application/x-mpegURL", src: "http://stream.tekoone.ru:850/hls/test.m3u8"});
+      }
+    }
+    if (navigator.appVersion.indexOf("Win")!=-1) {
       myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
-    else
-		  myPlayer.src({type: "application/x-mpegURL", src: "http://stream.tekoone.ru:850/hls/test.m3u8"});
+    }
+    if (navigator.appVersion.indexOf("Linux")!=-1) {
+      myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+    }
+  //   if (navigator.appVersion.indexOf("Win")!=-1)
+	// 	  myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+  // //  if (navigator.appVersion.indexOf("Mac")!=-1)
+  //   if (navigator.appVersion.indexOf("Linux")!=-1)
+  //     myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+  //   if ((navigator.appVersion.indexOf("Mac")!=-1) && (navigator.appVersion.indexOf("Safari")!=-1))
+	// 	  myPlayer.src({type: "application/x-mpegURL", src: "http://stream.tekoone.ru:850/hls/test.m3u8"});
+  //   if ((navigator.appVersion.indexOf("Mac")!=-1) && (navigator.appVersion.indexOf("Chrome")!=-1))
+  //     myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
 		myPlayer.duration(0);
 		myPlayer.play();
 	}
