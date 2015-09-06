@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('StreamApp', ['LocalStorageModule']);
-//var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false});
+var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false});
 //var myPlayer = videojs('myplayer', {context:new Dash.di.DashContext()});
 
 app.directive('modal', function () {
@@ -68,28 +68,6 @@ app.controller('playerController', function($scope, $location, $http, $interval,
         percent: ""
     }
 
-    var player;
-    var source;
-
-    function getConf(source) {
-      var conf = {
-        key:              '30f495f417b1d90c08229bacda09330f',
-        source: source,
-        style: {
-          width:          '100%',
-          aspectratio:    '16:9',
-          controls:       true
-        },
-        playback: {
-          autoplay         : true
-        }
-
-    }
-  return conf;
-
-
-    };
-
 	function get_list() {
 		$http.get("api.php", {
 			params: {
@@ -109,17 +87,9 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 	}
 
 	$scope.play = function (name) {
-		// if (myPlayer.currentType() == "rtmp/mp4")
-		// 	myPlayer.loadTech('Html5');
-		// myPlayer.src({ type: "video/mp4", src: name});
-    if (player) {
-      player.unload();
-      player.setup(getConf({mpd: '', progressive: 'http://stream.tekoone.ru/'+name}));
-    }
-    else {
-      player = bitdash("player").setup(getConf({mpd: '', progressive: 'http://stream.tekoone.ru/'+name}));
-    }
-    console.log('play: '+ name);
+		if (myPlayer.currentType() == "rtmp/mp4")
+			myPlayer.loadTech('Html5');
+		myPlayer.src({ type: "video/mp4", src: name});
 		$scope.currentVideo = name;
 		$scope.isLive = false;
 	}
@@ -127,21 +97,15 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 	$scope.live = function () {
 		$scope.currentVideo = "Live Stream";
 		$scope.isLive = true;
-    var live = {mpd: 'http://stream.tekoone.ru:850/dash/test.mpd',  hls: 'http://stream.tekoone.ru:850/hls/test.m3u8'};
-  //   if (navigator.appVersion.indexOf("Win")!=-1)
-	// 	  myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
-  // //  if (navigator.appVersion.indexOf("Mac")!=-1)
-  //   if (navigator.appVersion.indexOf("Linux")!=-1)
-  //     myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
-  //   else
-    console.log('play: live');
-    if (player) {
-      player.unload();
-      player.setup(getConf(live));
-    }
-    else {
-      player = bitdash("player").setup(getConf(live));
-    }
+    if (navigator.appVersion.indexOf("Win")!=-1)
+		  myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+  //  if (navigator.appVersion.indexOf("Mac")!=-1)
+    if (navigator.appVersion.indexOf("Linux")!=-1)
+      myPlayer.src({ type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" });
+    else
+		  myPlayer.src({type: "application/x-mpegURL", src: "http://stream.tekoone.ru:850/hls/test.m3u8"});
+		myPlayer.duration(0);
+		myPlayer.play();
 	}
 
 	$scope.update = function () {
@@ -164,10 +128,10 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 		else {
 			$scope.currentVideo = $location.$$path;
 			//console.log($location.$$path.split("/").slice(-1)[0] );
-			$scope.play('rec'+$location.$$path);
+			myPlayer.src({ type: "video/mp4", src: 'rec'+ $location.$$path});
 			if ($location.$$path.split("/").slice(-1)[0] ) {
-				// myPlayer.currentTime($location.$$path.split("/").slice(-1)[0]);
-				// myPlayer.play();
+				myPlayer.currentTime($location.$$path.split("/").slice(-1)[0]);
+				myPlayer.play();
 			}
 			$scope.isLive = false;
 		}
