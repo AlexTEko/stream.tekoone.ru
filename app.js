@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('StreamApp', ['LocalStorageModule']);
-var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: false});
+var myPlayer = videojs('myplayer', {techOrder: ['html5', 'flash'], autoplay: true});
 //var myPlayer = videojs('myplayer', {context:new Dash.di.DashContext()});
 
 app.directive('modal', function () {
