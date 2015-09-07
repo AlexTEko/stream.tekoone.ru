@@ -116,7 +116,7 @@ app.controller('playerController', function($scope, $location, $http, $interval,
     }
     if (navigator.appVersion.indexOf("Linux")!=-1) {
       if (navigator.appVersion.indexOf("Android")!=-1)
-        src = {type: "application/x-mpegURL", src: "http://stream.tekoone.ru:850/hls/test.m3u8"};
+        src = {type: "application/x-mpegURL", src: "http://stream.tekoone.ru:850/hls/test.m3u8"};//http://stream.tekoone.ru:850/dash/test.mpd
       else
         src = { type: "rtmp/mp4", src: "rtmp://stream.tekoone.ru/live/test" };
     }
