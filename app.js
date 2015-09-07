@@ -52,10 +52,11 @@ app.controller('indexController', function($scope) {
 
 app.controller('playerController', function($scope, $location, $http, $interval, localStorageService) {
 	//console.info($location.$$path);
-	$scope.currentVideo = " ";
+	$scope.currentVideo = "No video loaded";
 	$scope.isLive = false;
+  $scope.isPlay = false;
 	$scope.isLiveOnline = false;
-    $scope.showModalLogin = false;
+  $scope.showModalLogin = false;
 
     $scope.loginData = {
         user: "",
@@ -93,11 +94,13 @@ app.controller('playerController', function($scope, $location, $http, $interval,
       myPlayer.play();
 		$scope.currentVideo = name;
 		$scope.isLive = false;
+    $scope.isPLay = true;
 	}
 
 	$scope.live = function () {
 		$scope.currentVideo = "Live Stream";
 		$scope.isLive = true;
+    $scope.isPLay = true;
     var src;
     //console.log(navigator);
     if (navigator.appVersion.indexOf("Mac")!=-1) {
@@ -158,6 +161,7 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 				myPlayer.play();
 			}
 			$scope.isLive = false;
+      $scope.isLive = true;
 		}
 	}
 

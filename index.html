@@ -21,7 +21,7 @@
 				.vjs-fullscreen {padding-top: 0px}
     </style>
 </head>
-<body ng-app="StreamApp" ng-controller="playerController">
+<body ng-app="StreamApp" ng-controller="playerController" style="margin-top: -20px">
     <nav class="navbar navbar-default" ng-controller="indexController" >
         <div class="container-fluid">
 						<div class="navbar-header">
@@ -33,14 +33,12 @@
       				</button>
       				<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> StreamApp</a>
     				</div>
-
-
             <!--<p class="navbar-text  navbar-right"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> stream.tekoone.ru </p>-->
             <div ng-cloak>
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li ng-show="isAdmin()">
-                        <div style="width: 200px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
+                        <div style="width: 170px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> {{disk.used}}gb <span class="pull-right">{{disk.free}}gb</span>
                             <div class="progress progress-striped active" >
                                 <div class="progress-bar" style="width: {{disk.percent}}%"></div>
@@ -48,7 +46,7 @@
                         </div>
                     </li>
                     <li ng-show="isAdmin()">
-                        <div style="width: 200px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
+                        <div style="width: 170px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> CPU
                             <div class="progress progress-striped active" >
                                 <div class="progress-bar progress-bar-info" style="width: {{cpu}}%"></div>
@@ -56,7 +54,7 @@
                         </div>
                     </li>
                     <li ng-show="isAdmin()">
-                        <div style="width: 200px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
+                        <div style="width: 170px; padding-right: 15px; padding-left: 15px; margin-bottom: -15px;">
                             <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> RAM
                             <div class="progress progress-striped active" >
                                 <div class="progress-bar progress-bar-success" style="width: {{memory}}%"></div>
@@ -68,7 +66,7 @@
                     <!--<li><a ui-sref="player">player</a></li>-->
                     <!--<li><a href="#" ng-click="admin()">admin</a></li> &ndash;&gt;-->
                  </ul>
-								 <p class="navbar-text navbar-right"><a href="#" class="navbar-link" ng-click="showLogin()" ng-cloak><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Control panel</a></p>
+								 <p class="navbar-text navbar-right" ng-hide="isAdmin()"><a href="#" class="navbar-link" ng-click="showLogin()" ng-cloak><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Sign in</a></p>
 							 </div>
             </div>
         </div>
@@ -103,7 +101,7 @@
                     <tr ng-repeat="video in videos">
                         <td><a href="#/{{ video.name }}" ng-click="play(video.src)"><img ng-cloak ng-src="{{ video.img }}"/>
                             <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{ video.name }}</a></td>
-                        <td><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                        <td width="50px"><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                     </tr>
                     </tbody>
                 </table>
