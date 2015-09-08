@@ -29,6 +29,32 @@ function get_server_cpu_usage(){
 
 }
 
+function getInfo($videofile) {
+  $array = json_decode(shell_exec("avprobe rec/".$videofile." -show_streams -of json"));
+  $video = $array->streams[0];
+  $audio = $array->streams[1];
+  $duration = round($video->duration,0);
+  if ($duration<60)
+    $duration .="s";
+  else {
+    $m = round($duration/60,0);
+    $s = $duration % 60;
+    $duration = $m."m"." ".$s."s";
+  }
+  if ($video->level == 32)
+    $level = 'NVENC';
+  elseif ($video->level == 41)
+    $level = 'x264';
+  else
+    $level = 'Unknown';
+  $width = $video->width;
+  $height = $video->height;
+  $fps = explode("/",$video->avg_frame_rate);
+  $fps = round($fps[0]/$fps[1],0);
+  $outp = '{"resolution":"'.$width.'x'.$height.'","duration":"'.$duration.'","fps":"'.$fps.'","level":"'.$level.'"}';
+  return $outp;
+}
+
 
 if ($_GET['do'] == 'get') {
   $directory = 'rec/';
@@ -42,15 +68,30 @@ if ($_GET['do'] == 'get') {
       }
   }
 
-	$outp = "";
-	if (isset($output) )
-	{
-    foreach ($output as $rs) {
-			if ($outp != "") {$outp .= ",";}
-			$outp .= '{"name":"'  . str_replace(".flv.mp4","",$rs) . '",';
-			$outp .= '"src":"rec/'  . $rs. '",';
-			$outp .= '"img":"rec/'  . str_replace(".mp4",".min.jpeg",$rs). '"}';
-		}
+  if (isset($output) ) {
+    $outp = "";
+    $fc = fopen("cache.video_count", "r+");
+    $video_count = fread($fc, filesize("cache.video_count"));
+    if ($video_count != count($output)) {
+      fseek($fc, 0);
+      fwrite($fc, count($output));
+      $fv = fopen("cache.video", "w");
+      foreach ($output as $rs) {
+  			if ($outp != "") {$outp .= ",";}
+  			$outp .= '{"name":"'  . str_replace(".flv.mp4","",$rs) . '",';
+  			$outp .= '"src":"rec/'  . $rs. '",';
+  			$outp .= '"img":"rec/'  . str_replace(".mp4",".min.jpeg",$rs). '",';
+        $outp .= '"tech_info":'.getInfo($rs).'}';
+  		}
+      fwrite($fv, $outp);
+      fclose($fv);
+    }
+    else {
+      $fv = fopen("cache.video", "r");
+      $outp = fread($fv, filesize("cache.video"));
+      fclose($fv);
+    }
+    fclose($fc);
 	}
 
   //  $xml=simplexml_load_string(file_get_contents('http://localhost:850/stat')) or die("Error: Cannot create object");
@@ -59,7 +100,7 @@ if ($_GET['do'] == 'get') {
 
   $live = 'false';
 //if ((file_exists("live")) && (file_exists("/tmp/hls/".$stream.".m3u8")))
-  if ((file_exists("live")))
+  if ((file_exists("live")) && file_get_contents("http://stream.tekoone.ru:850/hls/test.m3u8"))
     $live = 'true';
 
   $ds = round(disk_total_space("/")/1024/1024/1024,2);
