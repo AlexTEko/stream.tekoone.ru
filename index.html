@@ -78,35 +78,40 @@
             <div class="col-lg-9" ng-cloak>
 							<div class="wrapper">
 								<div class="videocontent">
-	                <span class="label label-danger" ng-show="isLive">{{ currentVideo }}</span>
-	                <span class="label label-primary" ng-hide="isLive" >{{ currentVideo }}</span>
-	                <video id="myplayer" class="video-js vjs-default-skin" controls autoplay width="auto" height="auto">
+	                <video id="myplayer" class="video-js vjs-default-skin embed-responsive-item" controls autoplay width="auto" height="auto">
 	                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 	                </video>
+									<h3>
+										<span class="label label-default"> Now Playing:
+											<span class="label label-danger" ng-show="isLive">{{ currentVideo }}</span>
+											<span class="label label-primary" ng-hide="isLive" >{{ currentVideo }}</span>
+										</span>
+									</h3>
+
 								</div>
 							</div>
             </div>
-            <div class="col-lg-3" style = "padding-top: 20px;"  ng-cloak>
+            <div class="col-lg-3" style = "padding-top: 0px;"  ng-cloak>
                 <div ng-show="isLiveOnline"><a class="btn btn-danger btn-lg btn-block"  href="#/live" ng-click="live()">
                     <!-- <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Live Streaming ({{countLive}} <span class="glyphicon glyphicon-user" aria-hidden="true"></span>)</a></div> -->
 										<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Live Streaming</a></div>
                 <div ng-hide="isLiveOnline"><a class="btn btn-danger btn-lg btn-block" disabled>
                     <span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Live Streaming</a>
                 </div>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                      <th>Last videos</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="video in videos">
-                        <td><a href="#/{{ video.name }}" ng-click="play(video.src)"><img ng-cloak ng-src="{{ video.img }}"/>
-                            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{ video.name }}</a></td>
-                        <td width="50px"><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+								    <h3 class="panel-title">Last videos</h3>
+								  </div>
+									<table class="table table-hover">
+	                  <tbody>
+	                  <tr ng-repeat="video in videos">
+	                      <td><a href="#/{{ video.name }}" ng-click="play(video.src)"><img ng-cloak ng-src="{{ video.img }}"/>
+	                          <span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{ video.name }}</a></td>
+	                      <td width="50px"><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+	                  </tr>
+	                  </tbody>
+	                </table>
+								</div>
             </div>
         </div>
     </div>

@@ -57,6 +57,7 @@ app.controller('playerController', function($scope, $location, $http, $interval,
   $scope.isPlay = false;
 	$scope.isLiveOnline = false;
   $scope.showModalLogin = false;
+  $scope.videos = [];
 
     $scope.loginData = {
         user: "",
@@ -75,16 +76,18 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 				do: "get"
 			}
 		}).success(function (response) {
-			$scope.videos = response.records;
-			$scope.isLiveOnline = response.live;
-            $scope.countLive = response.count;
-            $scope.disk.used = response.disk.used;
-            $scope.disk.free = response.disk.free;
-            $scope.disk.percent = response.disk.percent;
-            $scope.cpu = response.cpu;
-            $scope.memory = response.memory;
-            $scope.cache = response.cache;
-        })
+      if ($scope.videos.length != response.records.length)
+			   $scope.videos = response.records;
+      if ($scope.isLiveOnline != response.live)
+			   $scope.isLiveOnline = response.live;
+      $scope.countLive = response.count;
+      $scope.disk.used = response.disk.used;
+      $scope.disk.free = response.disk.free;
+      $scope.disk.percent = response.disk.percent;
+      $scope.cpu = response.cpu;
+      $scope.memory = response.memory;
+      $scope.cache = response.cache;
+    })
 	}
 
 	$scope.play = function (name) {
@@ -92,7 +95,7 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 			myPlayer.loadTech('Html5');
 		if (myPlayer.src({ type: "video/mp4", src: name}))
       myPlayer.play();
-		$scope.currentVideo = name;
+		$scope.currentVideo = name.replace('rec/','').replace('.flv.mp4','');
 		$scope.isLive = false;
     $scope.isPLay = true;
 	}
@@ -153,20 +156,19 @@ app.controller('playerController', function($scope, $location, $http, $interval,
 			$scope.isLive = true;
 		}
 		else {
-			$scope.currentVideo = $location.$$path;
+			//$scope.currentVideo = $location.$$path;
 			//console.log($location.$$path.split("/").slice(-1)[0] );
-			myPlayer.src({ type: "video/mp4", src: 'rec'+ $location.$$path});
+			$scope.play('rec'+ $location.$$path+'.flv.mp4');
 			if ($location.$$path.split("/").slice(-1)[0] ) {
 				myPlayer.currentTime($location.$$path.split("/").slice(-1)[0]);
 				myPlayer.play();
 			}
 			$scope.isLive = false;
-      $scope.isLive = true;
 		}
 	}
 
     $scope.delete = function (name) {
-        if (confirm("Are you sure want to delete?")) {
+        if (confirm("Are you sure want to delete video:\n" + name + "?")) {
             var data = "file=" + name + "&token=" + localStorageService.get('token');
             $http.post('api.php?do=delete', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function () {
                 get_list();
