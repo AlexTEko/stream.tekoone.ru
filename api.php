@@ -49,9 +49,16 @@ function getInfo($videofile) {
     $level = 'Unknown';
   $width = $video->width;
   $height = $video->height;
+  $bit_rate = $video->bit_rate;
+  $bit_rate = round($bit_rate/10000,0)*10;
   $fps = explode("/",$video->avg_frame_rate);
   $fps = round($fps[0]/$fps[1],0);
-  $outp = '{"resolution":"'.$width.'x'.$height.'","duration":"'.$duration.'","fps":"'.$fps.'","level":"'.$level.'"}';
+  $outp = '{"resolution":"'.$width.'x'.$height
+    .'","duration":"'.$duration
+    .'","fps":"'.$fps
+    .'","level":"'.$level
+    .'","bit_rate":"'.$bit_rate
+    .'"}';
   return $outp;
 }
 

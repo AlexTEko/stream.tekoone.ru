@@ -108,7 +108,7 @@
 	                      <td width="40px"><img ng-cloak ng-src="{{ video.img }}"/></td>
 												<td>
 	                          <a href="#/{{ video.name }}" ng-click="play(video.src)"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{ video.name }}</a>
-														<br><small>{{video.tech_info.resolution}} {{video.tech_info.fps}}fps {{video.tech_info.level}} {{video.tech_info.duration}}</small>
+														<br><small>{{video.tech_info.resolution}}@{{video.tech_info.fps}} {{video.tech_info.bit_rate}} {{video.tech_info.level}} {{video.tech_info.duration}}</small>
 												</td>
 	                      <td width="50px"><a href="#" class="btn btn-danger btn-sm" ng-click="delete(video.name)" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
 	                  </tr>
