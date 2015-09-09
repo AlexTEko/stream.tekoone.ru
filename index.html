@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>StreamApp</title>
+	<title>TEkoOne Streaming</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,10 @@
 				video::-webkit-media-controls-panel {
     			display: none !important;
 				}
+				.no-gutter > [class*='col-'] {
+				    padding-right:0;
+				    padding-left:0;
+				}
     </style>
 </head>
 <body ng-app="StreamApp" ng-controller="playerController">
@@ -33,7 +37,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
       				</button>
-      				<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> StreamApp</a>
+      				<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> TEkoOne Streaming</a>
     				</div>
             <!--<p class="navbar-text  navbar-right"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> stream.tekoone.ru </p>-->
             <div ng-cloak>
@@ -73,10 +77,10 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid" style = "padding-top: 0px" >
-        <div class="row">
+    <div class="container-fluid" style="margin-top: -20px">
+        <div class="row no-gutter">
             <div class="col-lg-9" ng-cloak>
-							<div class="wrapper">
+							<div class="wrapper" >
 								<div class="videocontent">
 	                <video id="myplayer" class="video-js vjs-default-skin embed-responsive-item" controls autoplay width="auto" height="auto">
 	                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
@@ -91,7 +95,7 @@
 								</div>
 							</div>
             </div>
-            <div class="col-lg-3" style = "padding-top: 0px;"  ng-cloak>
+            <div class="col-lg-3" ng-cloak>
                 <div ng-show="isLiveOnline"><a class="btn btn-danger btn-lg btn-block"  href="#/live" ng-click="live()">
                     <!-- <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Live Streaming ({{countLive}} <span class="glyphicon glyphicon-user" aria-hidden="true"></span>)</a></div> -->
 										<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Live Streaming</a></div>
@@ -100,7 +104,7 @@
                 </div>
 								<div class="panel panel-default">
 								  <div class="panel-heading">
-								    <h3 class="panel-title">Last videos</h3>
+								    <h3 class="panel-title">Latest videos</h3>
 								  </div>
 									<table class="table table-hover">
 	                  <tbody>
