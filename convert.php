@@ -8,7 +8,7 @@
                 $file_name = explode(".", $file);
                 if (end($file_name) == "flv")
 				{
-                    exec("avconv -i ".$directory.$file." -codec copy -profile baseline ".$directory.$file.".mp4 ");
+          exec("avconv -i ".$directory.$file." -codec copy -profile baseline ".$directory.$file.".mp4 ");
 					exec("avconv -i ".$directory.$file." -r 1 -s 1280x720 -f image2 ".$directory.$file.".jpeg");
 					exec("avconv -i ".$directory.$file." -r 1 -s 40x32 -f image2 ".$directory.$file.".min.jpeg");
 

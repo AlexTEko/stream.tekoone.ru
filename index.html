@@ -25,6 +25,9 @@
 				    padding-right:0;
 				    padding-left:0;
 				}
+				.vjs-play-progress {background: grey !important;}
+				.vjs-volume-level {background: grey !important;}
+				.vjs-time-controls {font-size: 1.1em !important;}
     </style>
 </head>
 <body ng-app="StreamApp" ng-controller="playerController">
@@ -85,13 +88,15 @@
 	                <video id="myplayer" class="video-js vjs-default-skin embed-responsive-item" controls autoplay width="auto" height="auto">
 	                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 	                </video>
-									<h3>
-										<span class="label label-default"> Now Playing:
+								</div>
+								<div class="panel panel-default">
+  								<div class="panel-body" style="margin-top: -15px; margin-bottom: -10px;">
+										<h4>
+			 								<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Now Playing:
 											<span class="label label-danger" ng-show="isLive">{{ currentVideo }}</span>
 											<span class="label label-primary" ng-hide="isLive" >{{ currentVideo }}</span>
-										</span>
-									</h3>
-
+										</h4>
+  								</div>
 								</div>
 							</div>
             </div>
