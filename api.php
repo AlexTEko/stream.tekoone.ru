@@ -56,7 +56,7 @@ function getInfo($videofile) {
   $outp = '{"resolution":"'.$width.'x'.$height
     .'","duration":"'.$duration
     .'","fps":"'.$fps
-    .'","level":"'.$level
+  //  .'","level":"'.$level
     .'","bit_rate":"'.$bit_rate
     .'"}';
   return $outp;
